@@ -1,0 +1,29 @@
+{
+  "manifest_version": "1.0",
+  "project_name": "Franka Panda Smart Manipulation",
+  "team_name": "xiaoxiao0078",
+  "uuid": "940b0d71-fe53-4c6d-95f1-75815dd78881",
+  "robot": "Franka Emika Panda",
+  "tasks_completed": 25,
+  "tasks_total": 25,
+  "test_count": 77,
+  "tests_passing": 77,
+  "files": [
+    "franka_controller.py",
+    "test_franka_controller.py",
+    "record_demo.py",
+    "demo_real.mp4",
+    "README.md",
+    "JUDGE_BRIEF.md",
+    "evaluation_report.json",
+    "registration.json",
+    "submission_manifest.json"
+  ],
+  "video": {
+    "filename": "demo_real.mp4",
+    "duration_seconds": 24,
+    "resolution": "640x480",
+    "fps": 30,
+    "size_bytes": 676864
+  }
+}
