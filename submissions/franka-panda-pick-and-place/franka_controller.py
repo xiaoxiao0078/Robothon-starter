@@ -84,7 +84,7 @@ class FrankaController:
             # 从 submissions/franka-panda-pick-and-place/ 回到项目根目录
             project_root = Path(__file__).resolve().parent.parent.parent
             model_path = str(
-                project_root / "vendor" / "mujoco_menagerie" / "franka_emika_panda" / "scene.xml"
+                project_root / "vendor" / "mujoco_menagerie" / "franka_emika_panda" / "mjx_single_cube.xml"
             )
         
         self.model_path = model_path
@@ -105,7 +105,7 @@ class FrankaController:
         # 设置home位姿
         self.data.qpos[:7] = self.HOME_QPOS
         self.data.ctrl[:7] = self.HOME_QPOS
-        self.data.ctrl[7] = 255  # 夹爪闭合
+        self.data.ctrl[7] = 0.04  # 夹爪打开（范围0-0.04）
         mujoco.mj_forward(self.model, self.data)
         return True
 
@@ -496,9 +496,8 @@ class FrankaController:
         返回:
             是否成功
         """
-        # Franka夹爪映射: 0=闭合, 255=打开
-        ctrl_value = (width / 0.04) * 255
-        ctrl_value = np.clip(ctrl_value, 0, 255)
+        # Franka夹爪: 直接使用宽度值（范围0-0.04）
+        ctrl_value = np.clip(width, 0.0, 0.04)
         self.data.ctrl[7] = ctrl_value
         
         for _ in range(steps):
