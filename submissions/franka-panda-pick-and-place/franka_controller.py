@@ -561,11 +561,11 @@ class FrankaController:
         grasp_plan = self.compute_grasp_pose(object_pos, object_width)
         self._move_to_cartesian_pos(grasp_plan.grasp_pos, steps=150)
         
-        # 4. 关闭夹爪
-        self.gripper_control(object_width, steps=50)
+        # 4. 关闭夹爪（宽度=物体宽度的40%确保夹紧）
+        self.gripper_control(object_width * 0.4, steps=80)
         
         # 5. 抬起
-        self._move_to_cartesian_pos(grasp_plan.lift_pos, steps=150)
+        self._move_to_cartesian_pos(grasp_plan.lift_pos, steps=200)
         
         return True
 
