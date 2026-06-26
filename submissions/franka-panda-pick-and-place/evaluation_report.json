@@ -6,7 +6,7 @@
   "auto_evaluation": {
     "video_present": true,
     "video_duration_seconds": 20.6,
-    "video_resolution": "1920x1080",
+    "video_resolution": "1920x1072",
     "video_fps": 30,
     "registration_json_valid": true,
     "submission_manifest_valid": true,

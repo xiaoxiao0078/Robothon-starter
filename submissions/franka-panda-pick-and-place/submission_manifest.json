@@ -31,10 +31,10 @@
   ],
   "video": {
     "filename": "demo.mp4",
-    "duration_seconds": 20.6,
-    "resolution": "1920x1080",
+    "duration_seconds": 31.0,
+    "resolution": "1920x1072",
     "fps": 30,
-    "size_bytes": 13353850
+    "size_bytes": 41943040
   },
   "n_tests": 83,
   "tests_passed": 83,
