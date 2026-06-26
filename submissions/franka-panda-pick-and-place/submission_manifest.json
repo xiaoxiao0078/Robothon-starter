@@ -8,10 +8,10 @@
   "tasks_total": 22,
   "test_count": 77,
   "tests_passing": 77,
-  "n_trials": 32,
+  "n_trials": 64,
   "success_rate": 1.0,
   "wilson_ci_95": [
-    0.893,
+    0.943,
     1.0
   ],
   "files": [
@@ -32,11 +32,11 @@
   "video": {
     "filename": "demo.mp4",
     "duration_seconds": 20.6,
-    "resolution": "1920x1088",
+    "resolution": "1920x1080",
     "fps": 30,
     "size_bytes": 13353850
   },
-  "n_tests": 77,
-  "tests_passed": 77,
+  "n_tests": 83,
+  "tests_passed": 83,
   "changes": "Fixed hardcoded vendor path (embedded XML model), updated README to 22 steps, added dual-arm coordination functions"
 }

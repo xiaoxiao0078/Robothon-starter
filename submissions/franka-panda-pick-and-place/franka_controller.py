@@ -1320,3 +1320,132 @@ class FrankaController:
             "shared_ratio": len(shared_workspace) / num_samples,
             "collision_prone_samples": shared_workspace[:10],  # 示例
         }
+
+    # ==================== 故障恢复 ====================
+
+    def fault_recovery(self, fault_type: str, current_state: dict,
+                       target_state: dict, max_retries: int = 3) -> dict:
+        """
+        在线故障恢复 — 检测故障类型并执行对应的恢复策略。
+        无需重置整个任务，实时修正继续执行。
+        
+        参数:
+            fault_type: 故障类型 ("misalignment", "grasp_failure", "collision", "drop")
+            current_state: 当前状态 {"position": [x,y,z], "gripper_width": float, ...}
+            target_state: 目标状态 {"position": [x,y,z], ...}
+            max_retries: 最大重试次数
+            
+        返回:
+            恢复执行结果
+        """
+        recovery_log = []
+        
+        for attempt in range(max_retries):
+            if fault_type == "misalignment":
+                # 对准偏差：微调末端位置，重新对准
+                result = self._recover_misalignment(current_state, target_state)
+                recovery_log.append({"attempt": attempt + 1, "action": "realign", **result})
+                if result.get("success"):
+                    return {"recovered": True, "attempts": attempt + 1,
+                            "strategy": "realign", "log": recovery_log}
+                    
+            elif fault_type == "grasp_failure":
+                # 抓取失败：调整抓取宽度和力，重新抓取
+                result = self._recover_grasp_failure(current_state, target_state)
+                recovery_log.append({"attempt": attempt + 1, "action": "regrip", **result})
+                if result.get("success"):
+                    return {"recovered": True, "attempts": attempt + 1,
+                            "strategy": "regrip", "log": recovery_log}
+                    
+            elif fault_type == "collision":
+                # 碰撞：后退避让，重新规划路径
+                result = self._recover_collision(current_state, target_state)
+                recovery_log.append({"attempt": attempt + 1, "action": "retreat", **result})
+                if result.get("success"):
+                    return {"recovered": True, "attempts": attempt + 1,
+                            "strategy": "retreat_reroute", "log": recovery_log}
+                    
+            elif fault_type == "drop":
+                # 掉落：重新定位物体，重新抓取
+                result = self._recover_drop(current_state, target_state)
+                recovery_log.append({"attempt": attempt + 1, "action": "relocate", **result})
+                if result.get("success"):
+                    return {"recovered": True, "attempts": attempt + 1,
+                            "strategy": "relocate_regrip", "log": recovery_log}
+        
+        return {"recovered": False, "attempts": max_retries,
+                "strategy": fault_type, "log": recovery_log}
+
+    def _recover_misalignment(self, current: dict, target: dict) -> dict:
+        """对准偏差恢复：计算偏差向量并微调"""
+        cur_pos = np.array(current.get("position", [0, 0, 0.5]))
+        tgt_pos = np.array(target.get("position", [0, 0, 0.5]))
+        error = tgt_pos - cur_pos
+        
+        # 判断偏差大小
+        error_norm = np.linalg.norm(error)
+        if error_norm < 0.005:  # 5mm以内视为已对准
+            return {"success": True, "error_mm": error_norm * 1000}
+        
+        # 微调：用阻抗控制缓慢逼近
+        for _ in range(50):
+            pose = self.forward_kinematics(self.data.qpos[:7])
+            jac_pos, _ = self.get_jacobian(self.data.qpos[:7])
+            pos_error = tgt_pos - pose.position
+            dq = np.linalg.lstsq(jac_pos[:, :7], pos_error * 0.3, rcond=None)[0]
+            self.data.ctrl[:7] = self.data.qpos[:7] + dq
+            mujoco.mj_step(self.model, self.data)
+        
+        final_pose = self.forward_kinematics(self.data.qpos[:7])
+        final_error = np.linalg.norm(tgt_pos - final_pose.position)
+        return {"success": final_error < 0.01, "final_error_mm": final_error * 1000}
+
+    def _recover_grasp_failure(self, current: dict, target: dict) -> dict:
+        """抓取失败恢复：调整夹爪宽度，增加抓取力"""
+        # 先松开夹爪
+        for _ in range(20):
+            self.data.ctrl[7] = 0.04  # 全开
+            mujoco.mj_step(self.model, self.data)
+        
+        # 重新调整位置到物体中心
+        obj_pos = np.array(current.get("position", [0, 0, 0.5]))
+        self._move_to_cartesian_pos(obj_pos, steps=30)
+        
+        # 用更大宽度抓取
+        for _ in range(30):
+            self.data.ctrl[7] = 0.02  # 适中宽度
+            mujoco.mj_step(self.model, self.data)
+        
+        # 检查是否抓到
+        mujoco.mj_collision(self.model, self.data)
+        contacts = self.data.ncon
+        return {"success": contacts > 0, "contacts": contacts}
+
+    def _recover_collision(self, current: dict, target: dict) -> dict:
+        """碰撞恢复：后退避让，重新规划"""
+        # 后退10cm
+        cur_pos = np.array(current.get("position", [0, 0, 0.5]))
+        retreat_pos = cur_pos + np.array([0, 0, 0.1])
+        self._move_to_cartesian_pos(retreat_pos, steps=30)
+        
+        # 重新规划到目标
+        tgt_pos = np.array(target.get("position", [0, 0, 0.5]))
+        self._move_to_cartesian_pos(tgt_pos, steps=50)
+        
+        # 检查是否还有碰撞
+        mujoco.mj_collision(self.model, self.data)
+        return {"success": self.data.ncon == 0, "contacts_after": self.data.ncon}
+
+    def _recover_drop(self, current: dict, target: dict) -> dict:
+        """掉落恢复：重新定位物体，重新执行pick"""
+        # 松开夹爪
+        for _ in range(10):
+            self.data.ctrl[7] = 0.04
+            mujoco.mj_step(self.model, self.data)
+        
+        # 扫描寻找物体（简化：直接到目标位置）
+        obj_pos = np.array(target.get("position", [0, 0, 0.5]))
+        
+        # 执行标准pick流程
+        success = self.pick_object(obj_pos, object_width=0.02)
+        return {"success": success}

@@ -762,5 +762,59 @@ class TestPerformance:
         assert elapsed < 2.0
 
 
+# ==================== 故障恢复测试 ====================
+
+class TestFaultRecovery:
+    """故障恢复功能测试"""
+
+    def test_fault_recovery_misalignment(self, reset_controller):
+        """测试对准偏差恢复"""
+        current = {"position": [0.15, 0.01, 0.48]}
+        target = {"position": [0.15, 0.0, 0.44]}
+        result = reset_controller.fault_recovery("misalignment", current, target)
+        assert "recovered" in result
+        assert "attempts" in result
+        assert "log" in result
+
+    def test_fault_recovery_grasp_failure(self, reset_controller):
+        """测试抓取失败恢复"""
+        current = {"position": [0.15, 0.0, 0.44], "gripper_width": 0.04}
+        target = {"position": [0.15, 0.0, 0.44]}
+        result = reset_controller.fault_recovery("grasp_failure", current, target)
+        assert result["strategy"] == "regrip"
+        assert isinstance(result["log"], list)
+
+    def test_fault_recovery_collision(self, reset_controller):
+        """测试碰撞恢复"""
+        current = {"position": [0.0, 0.0, 0.5]}
+        target = {"position": [0.15, 0.0, 0.44]}
+        result = reset_controller.fault_recovery("collision", current, target)
+        assert result["strategy"] == "retreat_reroute"
+
+    def test_fault_recovery_drop(self, reset_controller):
+        """测试掉落恢复"""
+        current = {"position": [0.15, 0.0, 0.4]}
+        target = {"position": [0.15, 0.0, 0.44]}
+        result = reset_controller.fault_recovery("drop", current, target)
+        assert result["strategy"] == "relocate_regrip"
+
+    def test_fault_recovery_max_retries(self, reset_controller):
+        """测试最大重试次数限制"""
+        current = {"position": [0.15, 0.0, 0.48]}
+        target = {"position": [0.15, 0.0, 0.44]}
+        result = reset_controller.fault_recovery("misalignment", current, target, max_retries=1)
+        assert result["attempts"] <= 1
+
+    def test_fault_recovery_returns_log(self, reset_controller):
+        """测试恢复过程记录"""
+        current = {"position": [0.0, 0.0, 0.5]}
+        target = {"position": [0.15, 0.0, 0.44]}
+        result = reset_controller.fault_recovery("collision", current, target)
+        assert isinstance(result["log"], list)
+        for entry in result["log"]:
+            assert "attempt" in entry
+            assert "action" in entry
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])
