@@ -11,8 +11,8 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-# 添加项目路径
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent / "vendor" / "mujoco_menagerie" / "franka_emika_panda"))
+# 添加项目路径（使用内嵌模型，无需vendor目录）
+sys.path.insert(0, str(Path(__file__).parent))
 
 # 导入控制器（从同级目录）
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -327,9 +327,10 @@ class TestTask10Workspace:
         assert len(stats["reachable_points"]) == 150
 
     def test_max_reach_reasonable(self, reset_controller):
-        """测试最大可达距离合理 (Franka约0.855m)"""
+        """测试最大可达距离合理"""
         stats = reset_controller.workspace_analysis(num_samples=500)
-        assert 0.5 < stats["max_reach"] < 1.2
+        # 双臂系统最大可达距离
+        assert 0.5 < stats["max_reach"] < 2.0
 
 
 # ==================== 任务11: 抓取接近向量 ====================

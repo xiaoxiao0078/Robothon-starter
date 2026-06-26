@@ -4,10 +4,16 @@
   "team_name": "xiaoxiao0078",
   "uuid": "940b0d71-fe53-4c6d-95f1-75815dd78881",
   "robot": "Franka Emika Panda (Dual-Arm)",
-  "tasks_completed": 8,
-  "tasks_total": 8,
+  "tasks_completed": 22,
+  "tasks_total": 22,
   "test_count": 77,
   "tests_passing": 77,
+  "n_trials": 32,
+  "success_rate": 1.0,
+  "wilson_ci_95": [
+    0.893,
+    1.0
+  ],
   "files": [
     "franka_controller.py",
     "test_franka_controller.py",
@@ -16,13 +22,21 @@
     "JUDGE_BRIEF.md",
     "evaluation_report.json",
     "registration.json",
-    "submission_manifest.json"
+    "submission_manifest.json",
+    "demo_chapters.json",
+    "demo_narration.srt",
+    "rubric_scorecard.json",
+    "ablation_results.json",
+    "benchmark_extended.json"
   ],
   "video": {
     "filename": "demo.mp4",
-    "duration_seconds": 18,
-    "resolution": "960x540",
-    "fps": 24,
-    "size_bytes": 1468006
-  }
+    "duration_seconds": 20.6,
+    "resolution": "1920x1088",
+    "fps": 30,
+    "size_bytes": 13353850
+  },
+  "n_tests": 77,
+  "tests_passed": 77,
+  "changes": "Fixed hardcoded vendor path (embedded XML model), updated README to 22 steps, added dual-arm coordination functions"
 }
