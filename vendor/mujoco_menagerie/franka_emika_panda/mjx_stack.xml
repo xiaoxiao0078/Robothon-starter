@@ -1,0 +1,28 @@
+<mujoco model="panda stacking scene">
+  <include file="mjx_scene.xml"/>
+
+  <worldbody>
+    <!-- 方块1: 绿色（底座） -->
+    <body name="box1" pos="0.5 0 0.03">
+      <freejoint/>
+      <geom type="box" name="box1" size="0.02 0.02 0.03" condim="3" friction="1 .03 .003" rgba="0 1 0 1" contype="2"
+        conaffinity="1" solref="0.01 1"/>
+    </body>
+    <!-- 方块2: 蓝色（中间） -->
+    <body name="box2" pos="0.45 0.1 0.03">
+      <freejoint/>
+      <geom type="box" name="box2" size="0.02 0.02 0.03" condim="3" friction="1 .03 .003" rgba="0 0.3 1 1" contype="2"
+        conaffinity="1" solref="0.01 1"/>
+    </body>
+    <!-- 方块3: 红色（顶部） -->
+    <body name="box3" pos="0.55 -0.08 0.03">
+      <freejoint/>
+      <geom type="box" name="box3" size="0.02 0.02 0.03" condim="3" friction="1 .03 .003" rgba="1 0.2 0 1" contype="2"
+        conaffinity="1" solref="0.01 1"/>
+    </body>
+
+    <body mocap="true" name="mocap_target">
+      <geom type="box" size="0.02 0.02 0.03" rgba="1 0 0 0.2" contype="0" conaffinity="0"/>
+    </body>
+  </worldbody>
+</mujoco>
