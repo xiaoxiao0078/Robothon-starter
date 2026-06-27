@@ -35,7 +35,7 @@ The system was built to address the critical challenge of space station assembly
 | Task completion (demo video) | All 22 steps execute; 3-module stack completed | demo.mp4 |
 | Success rate | **100% (128/128 trials)** | benchmark_128_trials.json |
 | Wilson 95% CI | **[97.1%, 100%]** | benchmark_128_trials.json |
-| Force RMSE | **5.40N ±2.15N** | benchmark_128_trials.json |
+| Force RMSE | **5.40N ±2.33N** | benchmark_128_trials.json |
 | Decision frequency | **42.8 Hz ±4.3 Hz** | benchmark_128_trials.json |
 | Demo duration | 20.6s at 30fps, 1080p | demo.mp4 |
 | Task complexity | **22 steps** (matching Top 5 projects) | README.md |

@@ -1427,7 +1427,7 @@
     ],
     "wilson_ci_95_pct": "[97.1%, 100.0%]",
     "force_rmse_mean": 5.401451881789486,
-    "force_rmse_std": 2.3272320164680425,
+    "force_rmse_std": 2.33,
     "force_rmse": "5.40N \u00b12.33N",
     "decision_freq_mean": 42.82708301956137,
     "decision_freq_std": 4.282417636138537,

@@ -262,7 +262,7 @@ A comprehensive 128-trial benchmark provides statistical significance:
 |--------|-------|--------|
 | Success Rate | **100% (128/128 trials)** | benchmark_128_trials.json |
 | Wilson 95% CI | **[97.1%, 100%]** | benchmark_128_trials.json |
-| Force RMSE | **5.40N ±2.15N** | benchmark_128_trials.json |
+| Force RMSE | **5.40N ±2.33N** | benchmark_128_trials.json |
 | Decision Frequency | **42.8 Hz ±4.3 Hz** | benchmark_128_trials.json |
 | Total Time | **52.3 seconds** | benchmark_128_trials.json |
 | Avg Time/Trial | **0.41 seconds** | benchmark_128_trials.json |
