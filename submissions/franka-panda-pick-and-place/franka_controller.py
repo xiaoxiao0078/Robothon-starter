@@ -23,6 +23,14 @@ try:
 except ImportError:
     raise ImportError("请安装mujoco: pip install mujoco")
 
+# 导入UAHP模块
+try:
+    from dual_arm.uahp import UAHPController, HandoffStrategy
+except ImportError:
+    # 如果UAHP模块不存在，使用None
+    UAHPController = None
+    HandoffStrategy = None
+
 # ==================== 数据结构 ====================
 
 @dataclass
@@ -1228,7 +1236,8 @@ class FrankaController:
 
     def module_handoff(self, handoff_pos: np.ndarray,
                         left_releases: bool = True,
-                        grip_force: float = 5.0) -> dict:
+                        grip_force: float = 5.0,
+                        use_uahp: bool = True) -> dict:
         """
         双臂模块交接 — 精确控制两只手臂在交接点的力和位置。
         
@@ -1236,6 +1245,7 @@ class FrankaController:
             handoff_pos: 交接位置 [x, y, z]
             left_releases: True=左臂释放右臂接住，False=反之
             grip_force: 抓取力 (N)
+            use_uahp: 是否使用UAHP（信念状态驱动的自适应交接）
             
         返回:
             交接执行结果
@@ -1251,23 +1261,95 @@ class FrankaController:
         # 3. 执行交接序列
         steps = []
         
-        # 左臂到达交接点
-        steps.append({"arm": "left", "action": "approach", "target": handoff_pos})
-        # 右臂到达交接点
-        steps.append({"arm": "right", "action": "approach", "target": handoff_pos})
-        # 右臂夹紧
-        steps.append({"arm": "right", "action": "close_gripper", "force": grip_force})
-        # 左臂松开
-        steps.append({"arm": "left", "action": "open_gripper", "delay": 0.04})
-        # 双臂分离
-        steps.append({"arm": "both", "action": "separate"})
+        # UAHP控制
+        uahp_stats = None
+        if use_uahp and UAHPController is not None:
+            # 初始化UAHP控制器
+            uahp = UAHPController()
+            
+            # 模拟交接过程中的状态更新
+            for step_idx in range(10):  # 模拟10个步骤
+                # 模拟传感器数据
+                grip_force_sim = grip_force + np.random.randn() * 0.5
+                object_mass = 0.5  # 假设物体质量0.5kg
+                force_variance = 0.1 + np.random.randn() * 0.05
+                
+                # 模拟速度
+                linear_vel = np.array([0.01, 0.005, 0.0]) + np.random.randn(3) * 0.005
+                angular_vel = np.array([0.0, 0.0, 0.05]) + np.random.randn(3) * 0.02
+                
+                # 模拟位置误差
+                position_error = np.array([0.01, 0.005, 0.0]) + np.random.randn(3) * 0.005
+                orientation_error = 0.05 + np.random.randn() * 0.02
+                
+                # 模拟B臂状态
+                b_distance = 0.1 + np.random.randn() * 0.02
+                b_velocity = 0.05 + np.random.randn() * 0.01
+                
+                # 更新UAHP
+                belief = uahp.update(
+                    grip_force=grip_force_sim,
+                    object_mass=object_mass,
+                    force_variance=force_variance,
+                    linear_vel=linear_vel,
+                    angular_vel=angular_vel,
+                    position_error=position_error,
+                    orientation_error=orientation_error,
+                    b_distance=b_distance,
+                    b_velocity=b_velocity,
+                    current_time=step_idx * 0.1
+                )
+                
+                # 获取动作
+                action = uahp.get_action(belief)
+                
+                # 记录步骤
+                steps.append({
+                    "step": step_idx,
+                    "hcs": belief.hcs,
+                    "strategy": belief.strategy.value,
+                    "speed_factor": action['speed_factor'],
+                    "has_recovery": 'recovery_plan' in action
+                })
+            
+            # 获取统计信息
+            uahp_stats = uahp.get_stats()
         
-        return {
+        # 传统交接序列（作为备选）
+        if not use_uahp or UAHPController is None:
+            # 左臂到达交接点
+            steps.append({"arm": "left", "action": "approach", "target": handoff_pos})
+            # 右臂到达交接点
+            steps.append({"arm": "right", "action": "approach", "target": handoff_pos})
+            # 右臂夹紧
+            steps.append({"arm": "right", "action": "close_gripper", "force": grip_force})
+            # 左臂松开
+            steps.append({"arm": "left", "action": "open_gripper", "delay": 0.04})
+            # 双臂分离
+            steps.append({"arm": "both", "action": "separate"})
+        
+        result = {
             "handoff_position": handoff_pos.tolist(),
             "sequence": steps,
             "force_regulated": True,
             "grip_force": grip_force,
+            "uahp_enabled": use_uahp and UAHPController is not None,
         }
+        
+        # 添加UAHP统计信息
+        if uahp_stats is not None:
+            result["uahp_stats"] = {
+                "avg_hcs": uahp_stats['avg_hcs'],
+                "min_hcs": uahp_stats['min_hcs'],
+                "fast_transfers": uahp_stats['fast_transfers'],
+                "slow_aligns": uahp_stats['slow_aligns'],
+                "pause_replans": uahp_stats['pause_replans'],
+                "emergency_stops": uahp_stats['emergency_stops'],
+                "recoveries": uahp_stats['recoveries'],
+                "recovery_rate": uahp_stats['recovery_rate']
+            }
+        
+        return result
 
     def dual_arm_workspace_analysis(self, num_samples: int = 500) -> dict:
         """

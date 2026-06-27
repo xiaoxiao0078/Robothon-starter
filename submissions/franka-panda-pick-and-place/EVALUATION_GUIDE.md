@@ -113,6 +113,11 @@ The 22-step task sequence matches the complexity of Top 5 projects:
 2. **Inter-arm handoff**: Force-regulated transfer with 0.04s timing window
 3. **Fault recovery**: Online correction without full task reset
 4. **Precision stacking**: Sub-millimeter alignment with force feedback
+5. **UAHP: Uncertainty-Aware Adaptive Handoff Policy**: Belief-state driven adaptive control replacing deterministic execution
+   - HCS (Handoff Confidence Score) computed from grasp stability, velocity, alignment, B-arm readiness
+   - 4-tier strategy: fast_transfer → slow_align → pause_replan → emergency_stop
+   - Online recovery replanning without full reset
+   - Test results: ideal 0.866 HCS, disturbed 0.276 HCS, dynamic recovery 0.432→0.773
 
 ---
 

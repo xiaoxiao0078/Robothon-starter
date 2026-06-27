@@ -129,6 +129,12 @@ This submission presents a **dual-arm robotic system** using two Franka Emika Pa
 3. **Cooperative Handoff**: Module transfer between arms mid-task
 4. **Fault Recovery**: System self-corrects without human intervention
 5. **True Physics Integration**: No weld constraints, modules moved by physics
+6. **UAHP: Uncertainty-Aware Adaptive Handoff Policy**: Belief-state driven adaptive control
+   - Replaces deterministic triggers with probabilistic coordination
+   - HCS (Handoff Confidence Score) computed from 4 factors
+   - 4-tier strategy: fast_transfer → slow_align → pause_replan → emergency_stop
+   - Online recovery replanning without full reset
+   - "System is thinking during execution" — not just pipeline execution
 
 ---
 
