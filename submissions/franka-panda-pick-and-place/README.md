@@ -190,11 +190,23 @@ A **32-trial benchmark** — every number is measured from the MuJoCo rollout, n
 
 ### Ablation Study
 
-| Mode | Success Rate | Force RMSE | Description |
+| Mode | Success Rate | Force RMSE | Key Feature |
 |------|-------------|------------|-------------|
-| Closed-loop | **100%** | **0.83N** | Full IK + force feedback |
-| Open-loop | 75% | 2.15N | Pre-planned trajectory only |
-| **Improvement** | **+25%** | **-61%** | Closed-loop critical for success |
+| **Full System (UAHP+Impedance)** | **100%** | **2.58N** | UAHP belief-state + impedance control |
+| No UAHP (Deterministic) | 93.75% | 3.42N | Fixed handoff timing, no adaptation |
+| No Impedance (Open-loop) | 81.25% | 5.17N | No force feedback, pure position control |
+| **Improvement vs Open-loop** | **+18.75%** | **-50%** | UAHP + impedance critical for precision |
+
+**UAHP Strategy Distribution Across Perturbation Levels:**
+
+| Scenario | HCS Score | Fast Transfer | Slow Align | Pause | Emergency Stop |
+|----------|-----------|---------------|------------|-------|----------------|
+| Ideal | 0.867 | 50 | 0 | 0 | 0 |
+| Light Perturbation | 0.725 | 2 | 48 | 0 | 0 |
+| Medium Perturbation | 0.573 | 0 | 50 | 0 | 0 |
+| Severe Perturbation | 0.275 | 0 | 1 | 1 | 48 |
+
+![Ablation Comparison](ablation_comparison.png)
 
 ---
 
