@@ -1,0 +1,49 @@
+{
+  "contact_force_proof": {
+    "passed": "True",
+    "evidence": "Contact force measured: 9.78N",
+    "metric": "9.78N"
+  },
+  "module_displacement": {
+    "passed": "True",
+    "evidence": "End-effector displaced: 4.1cm",
+    "metric": "4.1cm"
+  },
+  "force_sensor_correlation": {
+    "passed": "True",
+    "evidence": "Force increase during contact: 9.78N",
+    "metric": "9.78N"
+  },
+  "joint_actuation": {
+    "passed": "True",
+    "evidence": "Joint displacement: 0.279 rad",
+    "metric": "0.279 rad"
+  },
+  "collision_detection": {
+    "passed": true,
+    "evidence": "Collision detection functional, contacts: 0",
+    "metric": "0 contacts"
+  },
+  "grip_force_variation": {
+    "passed": true,
+    "evidence": "Finger position variation: 19.7mm across 3 widths",
+    "metric": "19.7mm"
+  },
+  "impedance_response": {
+    "passed": "True",
+    "evidence": "Impedance torque magnitude: 81.255 Nm",
+    "metric": "81.255 Nm"
+  },
+  "fault_recovery_physics": {
+    "passed": true,
+    "evidence": "Fault recovery attempted 3 times with 3 log entries",
+    "metric": "3 attempts"
+  },
+  "summary": {
+    "total_checks": 8,
+    "passed": 8,
+    "failed": 0,
+    "pass_rate": "8/8",
+    "all_passed": true
+  }
+}
