@@ -1,0 +1,9 @@
+# Space Module Dual-Arm Assembly - Dependencies
+# MuJoCo physics engine
+mujoco>=3.0.0
+
+# NumPy for matrix operations
+numpy>=1.24.0
+
+# Optional: for video processing (if needed)
+# opencv-python>=4.8.0
