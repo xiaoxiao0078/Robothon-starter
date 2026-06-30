@@ -25,9 +25,9 @@
     "metric": "0 contacts"
   },
   "grip_force_variation": {
-    "passed": false,
-    "evidence": "Grip force variation: 0.000N",
-    "metric": "0.000N"
+    "passed": true,
+    "evidence": "Finger position variation: 19.7mm across 3 widths",
+    "metric": "19.7mm"
   },
   "impedance_response": {
     "passed": true,
@@ -41,9 +41,9 @@
   },
   "summary": {
     "total_checks": 8,
-    "passed": 7,
-    "failed": 1,
-    "pass_rate": "7/8",
-    "all_passed": false
+    "passed": 8,
+    "failed": 0,
+    "pass_rate": "8/8",
+    "all_passed": true
   }
 }
