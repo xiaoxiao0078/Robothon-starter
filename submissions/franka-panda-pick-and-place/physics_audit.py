@@ -210,7 +210,7 @@ class PhysicsAudit:
         for width in [0.0, 0.02, 0.04]:
             self.controller.gripper_control(width, steps=50)
             # Read finger joint positions (left_finger_j2 index 1)
-            finger_pos = abs(float(self.controller.data.qpos[1]))
+            finger_pos = abs(float(self.controller.data.qpos[7]))
             positions.append(finger_pos)
         
         # Finger position should vary with grip width
