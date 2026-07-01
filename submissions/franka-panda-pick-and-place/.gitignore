@@ -43,14 +43,9 @@ MUJOCO_LOG.TXT
 
 # Render outputs (large files)
 renders/
-*.mp4
 *.avi
 *.mov
 *.gif
-
-# Benchmark outputs
-benchmark_*.json
-check_*.png
 
 # Temporary files
 *.log

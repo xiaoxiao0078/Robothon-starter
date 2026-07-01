@@ -1,0 +1,449 @@
+{
+  "metadata": {
+    "uuid": "940b0d71-fe53-4c6d-95f1-75815dd78881",
+    "project": "Space Module Dual-Arm Assembly",
+    "pr": 487,
+    "account": "xiaoxiao0078",
+    "timestamp": "2026-07-01T17:27:38Z",
+    "total_tests": 80,
+    "passed_tests": 80,
+    "failed_tests": 0,
+    "pass_rate": 1.0
+  },
+  "categories": {
+    "boundary": {
+      "total": 10,
+      "passed": 10
+    },
+    "integration": {
+      "total": 10,
+      "passed": 10
+    },
+    "force_control": {
+      "total": 10,
+      "passed": 10
+    },
+    "robustness": {
+      "total": 10,
+      "passed": 10
+    },
+    "performance": {
+      "total": 10,
+      "passed": 10
+    },
+    "control": {
+      "total": 10,
+      "passed": 10
+    },
+    "uahp": {
+      "total": 10,
+      "passed": 10
+    },
+    "safety": {
+      "total": 10,
+      "passed": 10
+    }
+  },
+  "tests": [
+    {
+      "name": "joint_limit_min",
+      "passed": true,
+      "description": "Joint at minimum limit"
+    },
+    {
+      "name": "joint_limit_max",
+      "passed": true,
+      "description": "Joint at maximum limit"
+    },
+    {
+      "name": "zero_gravity",
+      "passed": true,
+      "description": "Zero gravity environment"
+    },
+    {
+      "name": "high_stiffness",
+      "passed": true,
+      "description": "High stiffness control"
+    },
+    {
+      "name": "low_stiffness",
+      "passed": true,
+      "description": "Low stiffness control"
+    },
+    {
+      "name": "max_force",
+      "passed": true,
+      "description": "Maximum force application"
+    },
+    {
+      "name": "min_force",
+      "passed": true,
+      "description": "Minimum force application"
+    },
+    {
+      "name": "max_velocity",
+      "passed": true,
+      "description": "Maximum velocity"
+    },
+    {
+      "name": "min_velocity",
+      "passed": true,
+      "description": "Minimum velocity"
+    },
+    {
+      "name": "extreme_orientation",
+      "passed": true,
+      "description": "Extreme module orientation"
+    },
+    {
+      "name": "full_assembly_cycle",
+      "passed": true,
+      "description": "Complete 3-module assembly"
+    },
+    {
+      "name": "multi_module_assembly",
+      "passed": true,
+      "description": "Assemble 3 different modules"
+    },
+    {
+      "name": "sequential_assembly",
+      "passed": true,
+      "description": "Sequential module assembly"
+    },
+    {
+      "name": "concurrent_arms",
+      "passed": true,
+      "description": "2 arms concurrent"
+    },
+    {
+      "name": "reset_after_error",
+      "passed": true,
+      "description": "Recovery after failure"
+    },
+    {
+      "name": "blue_module_assembly",
+      "passed": true,
+      "description": "Blue module assembly"
+    },
+    {
+      "name": "green_module_assembly",
+      "passed": true,
+      "description": "Green module assembly"
+    },
+    {
+      "name": "red_module_assembly",
+      "passed": true,
+      "description": "Red module assembly"
+    },
+    {
+      "name": "handoff_protocol",
+      "passed": true,
+      "description": "Handoff between arms"
+    },
+    {
+      "name": "full_space_station",
+      "passed": true,
+      "description": "Full space station assembly"
+    },
+    {
+      "name": "force_sensor_accuracy",
+      "passed": true,
+      "description": "Force sensor within 5%"
+    },
+    {
+      "name": "touch_sensor_response",
+      "passed": true,
+      "description": "Touch response < 1ms"
+    },
+    {
+      "name": "collision_detection",
+      "passed": true,
+      "description": "Collision detected"
+    },
+    {
+      "name": "end_effector_position",
+      "passed": true,
+      "description": "Position accuracy 0.1mm"
+    },
+    {
+      "name": "joint_angle_feedback",
+      "passed": true,
+      "description": "Joint angle feedback"
+    },
+    {
+      "name": "contact_force_distribution",
+      "passed": true,
+      "description": "Force distribution"
+    },
+    {
+      "name": "grasp_force_variation",
+      "passed": true,
+      "description": "Grasp force adapts"
+    },
+    {
+      "name": "pressure_mapping",
+      "passed": true,
+      "description": "Pressure map correct"
+    },
+    {
+      "name": "force_threshold",
+      "passed": true,
+      "description": "Force threshold detection"
+    },
+    {
+      "name": "force_feedback_loop",
+      "passed": true,
+      "description": "Force feedback loop"
+    },
+    {
+      "name": "rapid_commands",
+      "passed": true,
+      "description": "100 commands/sec"
+    },
+    {
+      "name": "concurrent_operations",
+      "passed": true,
+      "description": "Parallel operations"
+    },
+    {
+      "name": "noise_rejection",
+      "passed": true,
+      "description": "Noise filtered"
+    },
+    {
+      "name": "perturbation_recovery",
+      "passed": true,
+      "description": "Recover from push"
+    },
+    {
+      "name": "communication_delay",
+      "passed": true,
+      "description": "Handle 10ms delay"
+    },
+    {
+      "name": "sensor_dropout",
+      "passed": true,
+      "description": "Handle sensor failure"
+    },
+    {
+      "name": "actuator_saturation",
+      "passed": true,
+      "description": "Handle saturation"
+    },
+    {
+      "name": "model_mismatch",
+      "passed": true,
+      "description": "Handle model error"
+    },
+    {
+      "name": "disturbance_rejection",
+      "passed": true,
+      "description": "Reject disturbances"
+    },
+    {
+      "name": "stability_under_load",
+      "passed": true,
+      "description": "Stable under load"
+    },
+    {
+      "name": "ik_speed",
+      "passed": true,
+      "description": "IK < 5ms"
+    },
+    {
+      "name": "control_loop_speed",
+      "passed": true,
+      "description": "Control loop 1ms"
+    },
+    {
+      "name": "planning_speed",
+      "passed": true,
+      "description": "Planning < 100ms"
+    },
+    {
+      "name": "memory_usage",
+      "passed": true,
+      "description": "Memory < 500MB"
+    },
+    {
+      "name": "cpu_usage",
+      "passed": true,
+      "description": "CPU < 80%"
+    },
+    {
+      "name": "real_time_factor",
+      "passed": true,
+      "description": "RTF > 0.5"
+    },
+    {
+      "name": "throughput",
+      "passed": true,
+      "description": "3 modules/min"
+    },
+    {
+      "name": "latency",
+      "passed": true,
+      "description": "Latency < 10ms"
+    },
+    {
+      "name": "jitter",
+      "passed": true,
+      "description": "Jitter < 1ms"
+    },
+    {
+      "name": "synchronization",
+      "passed": true,
+      "description": "2-arm sync"
+    },
+    {
+      "name": "pid_stability",
+      "passed": true,
+      "description": "PID stable"
+    },
+    {
+      "name": "impedance_control",
+      "passed": true,
+      "description": "Impedance correct"
+    },
+    {
+      "name": "position_control",
+      "passed": true,
+      "description": "Position control"
+    },
+    {
+      "name": "velocity_control",
+      "passed": true,
+      "description": "Velocity control"
+    },
+    {
+      "name": "force_control",
+      "passed": true,
+      "description": "Force control"
+    },
+    {
+      "name": "hybrid_control",
+      "passed": true,
+      "description": "Hybrid control"
+    },
+    {
+      "name": "adaptive_control",
+      "passed": true,
+      "description": "Adaptive control"
+    },
+    {
+      "name": "fault_recovery",
+      "passed": true,
+      "description": "Fault recovery"
+    },
+    {
+      "name": "collision_avoidance",
+      "passed": true,
+      "description": "Collision avoidance"
+    },
+    {
+      "name": "trajectory_tracking",
+      "passed": true,
+      "description": "Trajectory tracked"
+    },
+    {
+      "name": "uncertainty_estimation",
+      "passed": true,
+      "description": "Uncertainty estimated"
+    },
+    {
+      "name": "strategy_selection",
+      "passed": true,
+      "description": "Strategy selected"
+    },
+    {
+      "name": "hcs_computation",
+      "passed": true,
+      "description": "HCS computed"
+    },
+    {
+      "name": "adaptive_control_uahp",
+      "passed": true,
+      "description": "Adaptive control"
+    },
+    {
+      "name": "grasp_stability",
+      "passed": true,
+      "description": "Grasp stability estimated"
+    },
+    {
+      "name": "velocity_estimation",
+      "passed": true,
+      "description": "Velocity estimated"
+    },
+    {
+      "name": "alignment_estimation",
+      "passed": true,
+      "description": "Alignment estimated"
+    },
+    {
+      "name": "fast_transfer",
+      "passed": true,
+      "description": "Fast transfer strategy"
+    },
+    {
+      "name": "slow_align",
+      "passed": true,
+      "description": "Slow align strategy"
+    },
+    {
+      "name": "emergency_stop",
+      "passed": true,
+      "description": "Emergency stop strategy"
+    },
+    {
+      "name": "emergency_stop",
+      "passed": true,
+      "description": "E-stop works"
+    },
+    {
+      "name": "force_limit",
+      "passed": true,
+      "description": "Force limited"
+    },
+    {
+      "name": "collision_avoidance_safety",
+      "passed": true,
+      "description": "Collision avoided"
+    },
+    {
+      "name": "workspace_limits",
+      "passed": true,
+      "description": "Workspace enforced"
+    },
+    {
+      "name": "speed_limits",
+      "passed": true,
+      "description": "Speed limited"
+    },
+    {
+      "name": "human_safety",
+      "passed": true,
+      "description": "Human safe"
+    },
+    {
+      "name": "module_safety",
+      "passed": true,
+      "description": "Module safe"
+    },
+    {
+      "name": "self_collision",
+      "passed": true,
+      "description": "No self-collision"
+    },
+    {
+      "name": "arm_arm_collision",
+      "passed": true,
+      "description": "No arm-arm collision"
+    },
+    {
+      "name": "error_handling",
+      "passed": true,
+      "description": "Errors handled"
+    }
+  ]
+}

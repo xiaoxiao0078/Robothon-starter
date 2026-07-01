@@ -1,0 +1,55 @@
+{
+  "metadata": {
+    "uuid": "940b0d71-fe53-4c6d-95f1-75815dd78881",
+    "project": "Space Module Dual-Arm Assembly",
+    "pr": 487,
+    "account": "xiaoxiao0078",
+    "timestamp": "2026-07-01T17:50:00Z",
+    "n_trials": 128
+  },
+  "closed_loop": {
+    "total": 128,
+    "successes": 128,
+    "failures": 0,
+    "rate": 1.0,
+    "ci": [0.971, 1.0]
+  },
+  "open_loop": {
+    "total": 128,
+    "successes": 128,
+    "failures": 0,
+    "rate": 1.0
+  },
+  "fault_recovery": {
+    "faults_detected": 52,
+    "faults_recovered": 48,
+    "recovery_rate": 0.923
+  },
+  "force_rmse": {
+    "closed_loop": 29.66,
+    "open_loop": 30.85,
+    "no_force_feedback": 35.12
+  },
+  "ablation": {
+    "full_uahp": {
+      "success_rate": 1.0,
+      "force_rmse": 29.66,
+      "recovery_rate": 0.923
+    },
+    "no_recovery": {
+      "success_rate": 1.0,
+      "force_rmse": 30.85,
+      "recovery_rate": 0.0
+    },
+    "no_force_feedback": {
+      "success_rate": 1.0,
+      "force_rmse": 35.12,
+      "recovery_rate": 0.0
+    },
+    "open_loop": {
+      "success_rate": 1.0,
+      "force_rmse": 30.85,
+      "recovery_rate": 0.0
+    }
+  }
+}
