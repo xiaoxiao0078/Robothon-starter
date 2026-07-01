@@ -1,0 +1,19 @@
+{
+  "uuid": "940b0d71-fe53-4c6d-95f1-75815dd78881",
+  "pr": 487,
+  "title": "Space Module Dual-Arm Assembly",
+  "success_rate": 100,
+  "trials": 128,
+  "wilson_ci": [97.1, 100],
+  "fault_recovery_rate": 94.6,
+  "fault_detections": 56,
+  "fault_recoveries": 53,
+  "physics_audit": "8/8",
+  "physics_audit_passed": 8,
+  "physics_audit_total": 8,
+  "force_rmse_closed": 29.66,
+  "force_rmse_open": 30.85,
+  "modules": 3,
+  "arms": 2,
+  "scenarios": 8
+}
