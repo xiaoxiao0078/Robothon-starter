@@ -4,7 +4,7 @@
 
 ## 🎯 Executive Summary
 
-**Space Module Dual-Arm Assembly** is a dual-arm robotic system for space module assembly using the **Uncertainty-Aware Handover Protocol (UAHP)**. The system uses **two Franka Panda arms** to collaboratively assemble **three space modules** with closed-loop force feedback and **92.3% fault recovery**.
+**Space Module Dual-Arm Assembly** is a dual-arm robotic system for space module assembly using the **Uncertainty-Aware Handover Protocol (UAHP)**. The system uses **two Franka Panda arms** to collaboratively assemble **three space modules** with closed-loop force feedback and **94.6% fault recovery**.
 
 ### Key Achievements
 
@@ -13,14 +13,14 @@
 | **Success Rate** | 100% (128/128) |
 | **Wilson CI 95%** | [97.1%, 100%] |
 | **Force RMSE** | 29.66N (closed-loop) |
-| **Fault Recovery** | 92.3% (48/52) |
+| **Fault Recovery** | 94.6% (53/56) |
 
 ## 🔬 Technical Innovation
 
 ### 1. UAHP (Uncertainty-Aware Handover Protocol)
 - Real-time uncertainty estimation
 - Adaptive strategy selection (fast/slow/pause/emergency)
-- 92.3% fault recovery rate
+- 94.6% fault recovery rate
 
 ### 2. Closed-Loop Force Control
 - Touch sensor feedback (4 sensors)

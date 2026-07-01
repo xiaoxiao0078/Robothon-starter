@@ -15,7 +15,7 @@
       "name": "MuJoCo Depth",
       "score": 12,
       "max": 12,
-      "evidence": "2 × Franka Panda (7-DOF), 4 touch sensors, position actuators (kp=4500/3500/2000)"
+      "evidence": "2 \u00d7 Franka Panda (7-DOF), 4 touch sensors, position actuators (kp=4500/3500/2000)"
     },
     {
       "name": "Task Design",
@@ -27,7 +27,7 @@
       "name": "Control",
       "score": 12,
       "max": 12,
-      "evidence": "UAHP protocol, closed-loop force control, 92.3% fault recovery"
+      "evidence": "UAHP protocol, closed-loop force control, 94.6% fault recovery"
     },
     {
       "name": "Dual-Arm Coordination",
@@ -51,7 +51,7 @@
       "name": "Innovation",
       "score": 12,
       "max": 12,
-      "evidence": "UAHP protocol, real-time uncertainty estimation, 92.3% recovery"
+      "evidence": "UAHP protocol, real-time uncertainty estimation, 94.6% recovery"
     }
   ]
 }

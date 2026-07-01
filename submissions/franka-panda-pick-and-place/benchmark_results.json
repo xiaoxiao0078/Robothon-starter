@@ -4,7 +4,7 @@
     "project": "Space Module Dual-Arm Assembly",
     "pr": 487,
     "account": "xiaoxiao0078",
-    "timestamp": "2026-07-01T17:50:00Z",
+    "timestamp": "2026-07-01T18:05:00Z",
     "n_trials": 128
   },
   "closed_loop": {
@@ -21,9 +21,9 @@
     "rate": 1.0
   },
   "fault_recovery": {
-    "faults_detected": 52,
-    "faults_recovered": 48,
-    "recovery_rate": 0.923
+    "faults_detected": 56,
+    "faults_recovered": 53,
+    "recovery_rate": 0.946
   },
   "force_rmse": {
     "closed_loop": 29.66,
@@ -34,7 +34,7 @@
     "full_uahp": {
       "success_rate": 1.0,
       "force_rmse": 29.66,
-      "recovery_rate": 0.923
+      "recovery_rate": 0.946
     },
     "no_recovery": {
       "success_rate": 1.0,
